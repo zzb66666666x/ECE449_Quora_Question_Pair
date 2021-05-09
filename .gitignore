@@ -1,0 +1,4 @@
+data/
+*.npy
+*.json
+*.h5
