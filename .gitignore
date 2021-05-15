@@ -1,4 +1,5 @@
 data/
+example3/data/
 *.npy
 *.json
 *.h5
