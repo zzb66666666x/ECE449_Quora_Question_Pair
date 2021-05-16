@@ -1,5 +1,5 @@
 import keras.backend as K
-from keras.layers import Lambda, Activation, Dropout, Embedding, SpatialDropout1D, Dense, concatenate, Permute
+from keras.layers import Lambda, Activation, Dropout, Embedding, SpatialDropout1D, Dense, concatenate, merge
 from keras.layers import TimeDistributed  # This applies the model to every timestep in the input sequences
 from keras.layers import Bidirectional, LSTM, GlobalMaxPooling1D, GlobalAveragePooling1D
 # from keras.layers.advanced_activations import ELU
@@ -64,12 +64,14 @@ def attention_output(encoded):
 def attention_softmax3d(x):
     attention = x[0]
     sentence = x[1]
+
     # 3D softmax: calculate the subphrase in the sentence through attention
     exp = K.exp(attention - K.max(attention, axis=-1, keepdims=True))
     summation = K.sum(exp, axis=-1, keepdims=True)
     weights = exp / summation
 
     return K.batch_dot(weights, sentence)
+
 
 def attention_softmax3d_output(x):
     attention_shape = x[0]
@@ -105,8 +107,8 @@ class Attention_Layer(object):
 
     def __call__(self,encoded_a, encoded_b):
         attention_ab = Lambda(attention, attention_output, name='attention')([encoded_a, encoded_b])
-        attention_ab_T = Permute((1,2))(attention_ab)
-
+        attention_ab_T = Lambda(lambda x: K.permute_dimensions(x, (0, 2, 1)), attention_output, name="attention_transpose")(attention_ab.get_weights())
+        
         alpha = Lambda(attention_softmax3d, attention_softmax3d_output, name='soft_alignment_a')([attention_ab, encoded_b])
         beta = Lambda(attention_softmax3d, attention_softmax3d_output, name='soft_alignment_b')([attention_ab_T, encoded_a])
         
