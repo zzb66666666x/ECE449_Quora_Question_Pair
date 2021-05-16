@@ -31,9 +31,8 @@ class Pooling_Layer(object):
     def __init__(self, hidden_units, output_units, hidden_units_scale=1, dropout=0.5, l2_weight_decay=0.0):
         self.model = Sequential()
         self.model.add(Dropout(dropout, input_shape=(hidden_units * hidden_units_scale,)))
-        self.model.add(Dense(hidden_units, kernel_initializer='he_normal', kernel_regularizer=regularizers.l2(l2_weight_decay)))
-        self.model.add(Activation('relu'))
-        self.model.add(Dense(output_units, activation='softmax', kernel_initializer='zero', kernel_regularizer=regularizers.l2(l2_weight_decay)))
+        self.model.add(Dense(output_units, activation='relu'))
+        self.model.add(BatchNormalization())
 
     def __call__(self, a, b):
         a_max = GlobalMaxPooling1D()(a)
