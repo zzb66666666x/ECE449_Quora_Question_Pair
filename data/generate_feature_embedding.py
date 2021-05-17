@@ -20,7 +20,7 @@ df_data = pd.concat([df_train[['question1', 'question2']], df_test[['question1',
 
 
 # google news wmd
-model = gensim.models.KeyedVectors.load_word2vec_format('../../corpora/GoogleNews-vectors-negative300.bin', binary=True)
+model = gensim.models.KeyedVectors.load_word2vec_format('corpora/GoogleNews-vectors-negative300.bin', binary=True)
 
 def wmd(s1, s2):
     s1 = str(s1).lower().split()
@@ -32,7 +32,7 @@ def wmd(s1, s2):
 
 df_feat['google_news_wmd'] = df_data.apply(lambda row: wmd(row['question1'], row['question2']), axis=1)
 
-norm_model = gensim.models.KeyedVectors.load_word2vec_format('../../corpora/GoogleNews-vectors-negative300.bin', binary=True)
+norm_model = gensim.models.KeyedVectors.load_word2vec_format('corpora/GoogleNews-vectors-negative300.bin', binary=True)
 norm_model.init_sims(replace=True)
 
 def norm_wmd(s1, s2):
@@ -47,7 +47,7 @@ df_feat['google_news_norm_wmd'] = df_data.apply(lambda row: norm_wmd(row['questi
 
 
 # glove wmd
-model = gensim.models.KeyedVectors.load_word2vec_format('../../corpora/glove_model.txt', binary=False)
+model = gensim.models.KeyedVectors.load_word2vec_format('corpora/glove_model.txt', binary=False)
 
 def wmd(s1, s2):
     s1 = str(s1).lower().split()
@@ -59,7 +59,7 @@ def wmd(s1, s2):
 
 df_feat['glove_wmd'] = df_data.apply(lambda row: wmd(row['question1'], row['question2']), axis=1)
 
-norm_model = gensim.models.KeyedVectors.load_word2vec_format('../../corpora/glove_model.txt', binary=False)
+norm_model = gensim.models.KeyedVectors.load_word2vec_format('corpora/glove_model.txt', binary=False)
 norm_model.init_sims(replace=True)
 
 def norm_wmd(s1, s2):
@@ -74,7 +74,7 @@ df_feat['glove_norm_wmd'] = df_data.apply(lambda row: norm_wmd(row['question1'],
 
 
 # google news w2v distance
-model = gensim.models.KeyedVectors.load_word2vec_format('../../corpora/GoogleNews-vectors-negative300.bin', binary=True)
+model = gensim.models.KeyedVectors.load_word2vec_format('corpora/GoogleNews-vectors-negative300.bin', binary=True)
 stop_words = stopwords.words('english')
 
 def sent2vec(s):
@@ -114,7 +114,7 @@ df_feat['google_news_kur_q2vec'] = [kurtosis(x) for x in np.nan_to_num(question2
 
 
 # glove w2v distance
-model = gensim.models.KeyedVectors.load_word2vec_format('../../corpora/glove_model.txt', binary=False)
+model = gensim.models.KeyedVectors.load_word2vec_format('corpora/glove_model.txt', binary=False)
 def sent2vec(s):
     words = str(s).lower()
     words = nltk.word_tokenize(words)
@@ -152,7 +152,7 @@ df_feat['glove_kur_q2vec'] = [kurtosis(x) for x in np.nan_to_num(question2_vecto
 
 
 # fasttext w2v distance
-model = FastText.load_word2vec_format('../../corpora/wiki.en.vec')
+model = FastText.load_word2vec_format('corpora/wiki.en.vec')
 def sent2vec(s):
     words = str(s).lower()
     words = nltk.word_tokenize(words)
