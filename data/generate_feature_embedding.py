@@ -7,7 +7,6 @@ import gensim
 from nltk.corpus import stopwords
 from scipy.stats import skew, kurtosis
 from scipy.spatial.distance import cosine, cityblock, jaccard, canberra, euclidean, minkowski, braycurtis
-from gensim.models.wrappers import FastText
 
 
 df_train = pd.read_csv('train.csv')
@@ -152,7 +151,7 @@ df_feat['glove_kur_q2vec'] = [kurtosis(x) for x in np.nan_to_num(question2_vecto
 
 
 # fasttext w2v distance
-model = FastText.load_word2vec_format('corpora/wiki.en.vec')
+model = gensim.models.KeyedVectors.load_word2vec_format.load_word2vec_format('corpora/wiki.en.vec')
 def sent2vec(s):
     words = str(s).lower()
     words = nltk.word_tokenize(words)
