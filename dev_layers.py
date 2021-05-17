@@ -12,26 +12,27 @@ class BiLSTM_Layer(object):
     Encode the embedded words by using BiLSTM
     """
 
-    def __init__(self, max_length, hidden_units, hidden_units_scale=1, dropout=0.15):
+    def __init__(self, max_length, hidden_units, hidden_units_scale=1, dropout=0.5, ret_seq=True):
         self.model = Sequential()
         self.model.add(
             Bidirectional(
-                LSTM(hidden_units, return_sequences=True, dropout=dropout, recurrent_dropout=0), input_shape=(max_length, hidden_units*hidden_units_scale)
+                LSTM(hidden_units, return_sequences=ret_seq, dropout=dropout, recurrent_dropout=0), input_shape=(max_length, hidden_units*hidden_units_scale)
             )
         )  
         # return_sequences: return the last output in the output sequence, or the full sequence.
-        self.model.add(TimeDistributed(Dense(hidden_units, activation='relu', kernel_initializer='he_normal')))
-        self.model.add(TimeDistributed(Dropout(dropout)))
+        if ret_seq:
+          self.model.add(TimeDistributed(Dense(hidden_units, activation='relu', kernel_initializer='he_normal')))
+          self.model.add(TimeDistributed(Dropout(dropout)))
 
     def __call__(self, embedded_words):
         return self.model(embedded_words)
 
 class Pooling_Layer(object):
 
-    def __init__(self, hidden_units, output_units, hidden_units_scale=1, dropout=0.1, l2_weight_decay=0.0):
+    def __init__(self, hidden_units, output_units, hidden_units_scale=1, dropout=0.5, l2_weight_decay=0.0):
         self.model = Sequential()
         self.model.add(Dropout(dropout, input_shape=(hidden_units * hidden_units_scale,)))
-        self.model.add(Dense(output_units, activation='relu'))
+        self.model.add(Dense(output_units, activation='relu', kernel_regularizer=regularizers.l2(l2_weight_decay)))
         self.model.add(BatchNormalization())
 
     def __call__(self, a, b):
