@@ -1,5 +1,4 @@
 data/*.csv
-example3/data/
 *.npy
 *.json
 *.h5
