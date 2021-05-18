@@ -111,6 +111,9 @@ df_feat['google_news_skew_q2vec'] = [skew(x) for x in np.nan_to_num(question2_ve
 df_feat['google_news_kur_q1vec'] = [kurtosis(x) for x in np.nan_to_num(question1_vectors)]
 df_feat['google_news_kur_q2vec'] = [kurtosis(x) for x in np.nan_to_num(question2_vectors)]
 
+# save things
+df_feat[:len_train].to_csv('train_feature_embedding1.csv', index=False)
+df_feat[len_train:].to_csv('test_feature_embedding1.csv', index=False) 
 
 # glove w2v distance
 model = gensim.models.KeyedVectors.load_word2vec_format('corpora/glove_model.txt', binary=False)
@@ -149,6 +152,8 @@ df_feat['glove_skew_q2vec'] = [skew(x) for x in np.nan_to_num(question2_vectors)
 df_feat['glove_kur_q1vec'] = [kurtosis(x) for x in np.nan_to_num(question1_vectors)]
 df_feat['glove_kur_q2vec'] = [kurtosis(x) for x in np.nan_to_num(question2_vectors)]
 
+df_feat[:len_train].to_csv('train_feature_embedding2.csv', index=False)
+df_feat[len_train:].to_csv('test_feature_embedding2.csv', index=False)
 
 # fasttext w2v distance
 model = gensim.models.KeyedVectors.load_word2vec_format.load_word2vec_format('corpora/wiki.en.vec')
