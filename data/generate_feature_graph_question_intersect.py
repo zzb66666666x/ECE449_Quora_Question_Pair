@@ -63,11 +63,11 @@ def q1_q2_wm_ratio(row):
     return inter_wm/total_wm
 
 
-train_orig['q1_q2_wm_ratio'] = train_orig.apply(q1_q2_wm_ratio, axis=1, raw=True)
-test_orig['q1_q2_wm_ratio'] = test_orig.apply(q1_q2_wm_ratio, axis=1, raw=True)
+train_orig['q1_q2_wm_ratio'] = train_orig.apply(q1_q2_wm_ratio, axis=1, raw=False)
+test_orig['q1_q2_wm_ratio'] = test_orig.apply(q1_q2_wm_ratio, axis=1, raw=False)
 
-train_orig['q1_q2_intersect'] = train_orig.apply(q1_q2_intersect, axis=1, raw=True)
-test_orig['q1_q2_intersect'] = test_orig.apply(q1_q2_intersect, axis=1, raw=True)
+train_orig['q1_q2_intersect'] = train_orig.apply(q1_q2_intersect, axis=1, raw=False)
+test_orig['q1_q2_intersect'] = test_orig.apply(q1_q2_intersect, axis=1, raw=False)
 
 train_feat = train_orig[['q1_q2_intersect', 'q1_q2_wm_ratio']]
 test_feat = test_orig[['q1_q2_intersect', 'q1_q2_wm_ratio']]
