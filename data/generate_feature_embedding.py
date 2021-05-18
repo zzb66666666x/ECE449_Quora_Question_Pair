@@ -7,7 +7,7 @@ import gensim
 from nltk.corpus import stopwords
 from scipy.stats import skew, kurtosis
 from scipy.spatial.distance import cosine, cityblock, jaccard, canberra, euclidean, minkowski, braycurtis
-
+import nltk
 
 df_train = pd.read_csv('train.csv')
 df_test = pd.read_csv('test.csv')
