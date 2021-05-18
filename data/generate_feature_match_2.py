@@ -72,7 +72,7 @@ def word_shares(row):
     return '{}:{}:{}:{}:{}:{}:{}:{}'.format(R1, R2, len(shared_words), R31, R32, R2gram, Rcosine, words_hamming)
 
 df = pd.concat([df_train, df_test])
-df['word_shares'] = df.apply(word_shares, axis=1, raw=True)
+df['word_shares'] = df.apply(word_shares, axis=1, raw=False)
 
 
 df_feature = pd.DataFrame()
