@@ -7,11 +7,17 @@ from keras import backend as K
 MAX_SEQUENCE_LENGTH = 30
 EMBEDDING_DIM = 300
 DROPOUT = 0.1
+FEAT_DENSE_DIM = 100
+DROPOUT_FEATURE = 0.2
 
 def get_MLP(word_embedding_matrix, X_train_feat, nb_words):
 
     question1 = Input(shape=(MAX_SEQUENCE_LENGTH,))
     question2 = Input(shape=(MAX_SEQUENCE_LENGTH,))
+    feat_input = Input(shape=(X_train_feat.shape[1],))
+
+    feat_layer = Dense(FEAT_DENSE_DIM, activation='relu')(feat_input)
+    feat_layer = Dropout(DROPOUT_FEATURE)(feat_layer)
 
     q1 = Embedding(nb_words + 1, 
                     EMBEDDING_DIM, 
@@ -33,6 +39,9 @@ def get_MLP(word_embedding_matrix, X_train_feat, nb_words):
     merged = Dense(200, activation='relu')(merged)
     merged = Dropout(DROPOUT)(merged)
     merged = BatchNormalization()(merged)
+
+    merged = concatenate([merged, feat_layer])
+
     merged = Dense(200, activation='relu')(merged)
     merged = Dropout(DROPOUT)(merged)
     merged = BatchNormalization()(merged)
@@ -45,6 +54,6 @@ def get_MLP(word_embedding_matrix, X_train_feat, nb_words):
 
     is_duplicate = Dense(1, activation='sigmoid')(merged)
 
-    model = Model(inputs=[question1,question2], outputs=is_duplicate)
+    model = Model(inputs=[question1,question2,feat_input], outputs=is_duplicate)
     model.compile(loss='binary_crossentropy', optimizer='adam', metrics=['accuracy'])
     return model

@@ -1,7 +1,7 @@
 import keras.backend as K
 from keras.layers import Lambda, Activation, Dropout, Embedding, SpatialDropout1D, Dense, concatenate, Permute
 from keras.layers import TimeDistributed  # This applies the model to every timestep in the input sequences
-from keras.layers import Bidirectional, LSTM, GlobalMaxPooling1D, GlobalAveragePooling1D
+from keras.layers import Bidirectional, LSTM, GlobalMaxPooling1D, GlobalAveragePooling1D, Conv1D
 # from keras.layers.advanced_activations import ELU
 from keras.models import Sequential
 from keras import regularizers
@@ -120,3 +120,42 @@ class Attention_Layer(object):
         m_b = concatenate([encoded_b, beta, sub_b, mul_b])  # shape=(batch_size, time-steps, 4 * units)        
 
         return m_a,m_b
+
+def Convolution_layer(emb):
+    conv1 = Conv1D(filters=128, kernel_size=1, padding='same', activation='relu')
+    conv2 = Conv1D(filters=128, kernel_size=2, padding='same', activation='relu')
+    conv3 = Conv1D(filters=128, kernel_size=3, padding='same', activation='relu')
+    conv4 = Conv1D(filters=128, kernel_size=4, padding='same', activation='relu')
+    conv5 = Conv1D(filters=32, kernel_size=5, padding='same', activation='relu')
+    conv6 = Conv1D(filters=32, kernel_size=6, padding='same', activation='relu')
+    conv7 = Conv1D(filters=32, kernel_size=7, padding='same', activation='relu')
+    conv8 = Conv1D(filters=32, kernel_size=8, padding='same', activation='relu')
+
+  
+    convl1=conv1(emb)
+    glob1=GlobalAveragePooling1D()(convl1)
+
+    convl2=conv2(emb)
+    glob2=GlobalAveragePooling1D()(convl2)
+
+    convl3=conv3(emb)
+    glob3=GlobalAveragePooling1D()(convl3)
+
+    convl4=conv4(emb)
+    glob4=GlobalAveragePooling1D()(convl4)
+
+    convl5=conv5(emb)
+    glob5=GlobalAveragePooling1D()(convl5)
+
+    convl6=conv6(emb)
+    glob6=GlobalAveragePooling1D()(convl6)
+
+    convl7=conv7(emb)
+    glob7=GlobalAveragePooling1D()(convl7)
+
+    convl8=conv8(emb)
+    glob8=GlobalAveragePooling1D()(convl8)
+  
+    merge=concatenate([glob1,glob2,glob3,glob4,glob5,glob6,glob7,glob8])
+    
+    return merge

@@ -10,11 +10,12 @@ from keras import regularizers
 import dev_layers
 
 MAX_SEQUENCE_LENGTH = 30
-FEAT_DENSE_DIM = 50
+FEAT_DENSE_DIM = 100
 DROPOUT_FEATURE = 0.2
 EMBEDDING_DIM = 300
 HIDDEN_DIM = 150
 DROPOUT_DENSE = 0.3 
+L2_WEIGHT_DECAY = 1e-4
 
 def get_CNN(word_embedding_matrix, X_train_feat, nb_words):
     question1 = Input(shape=(MAX_SEQUENCE_LENGTH,))
