@@ -11,7 +11,7 @@ get data: https://zjuintl-my.sharepoint.com/:f:/g/personal/zhongbo_18_intl_zju_e
 
 - Lu Yichen
 
-## How to run
+## How to run Bi-LSTM/CNN/MLP
 
 github: [zzb66666666x/ECE449_Quora_Question_Pair (github.com)](https://github.com/zzb66666666x/ECE449_Quora_Question_Pair)
 
@@ -38,4 +38,11 @@ github: [zzb66666666x/ECE449_Quora_Question_Pair (github.com)](https://github.co
    MLP_model.h5
    ```
 
-   
+
+## How to run xgboost
+
+1. please put all data into a folder called data in your workspace
+2. use the xgboost.ipynb to run the code
+3. xgb_par.csv keeps the params needed
+
+why we use two dataset links? Well this xgboost part was written by Lian Xinyu, and the model is also not based on keras, our work cannot be easily merged, so if you want to run the xgboost model, please download them first. 
