@@ -1,0 +1,11 @@
+,Objective,eval_metric',eta',n_jobs','max_depth','subsample',"'base_score'
+"
+,binary:logistic',logloss',0.02,5,6,0.6,0.2
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
