@@ -1,4 +1,15 @@
-# How to run
+# Quora Question Pair
+
+## Author @ ZJU-UIUC Institue
+
+- Zhu Zhongbo
+- Xiao Shuhong
+- Pan Bo
+- Lian Xinyu
+
+- Lu Yichen
+
+## How to run
 
 github: [zzb66666666x/ECE449_Quora_Question_Pair (github.com)](https://github.com/zzb66666666x/ECE449_Quora_Question_Pair)
 
