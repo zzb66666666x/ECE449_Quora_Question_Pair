@@ -1,6 +1,6 @@
 # Quora Question Pair
 
-get data: https://zjuintl-my.sharepoint.com/:f:/g/personal/zhongbo_18_intl_zju_edu_cn/EqDUd6SspnhOoKTknMooYUYBCrM70iFdcwS7XNi_KB37iw?e=xSTMbY.
+deploy to website: [zzb66666666x/Deploy-Quora-Question-Pair-Model: deploy the quora question pair model to web app (github.com)](https://github.com/zzb66666666x/Deploy-Quora-Question-Pair-Model)
 
 ## Author @ ZJU-UIUC Institue
 
